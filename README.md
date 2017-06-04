@@ -35,6 +35,8 @@ call denite#custom#var('session', 'path', '~/.vim-sessions')
 
 ## Credits & Contribution
 
+- [chemzqm/denite-extra](https://github.com/chemzqm/denite-extra)
+
 This plugin is maintained by Rafael Bodill.
 
 Pull requests are welcome.
