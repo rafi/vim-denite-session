@@ -7,6 +7,7 @@
 import os
 
 from .openable import Kind as Openable
+from denite import util
 
 
 class Kind(Openable):
@@ -18,6 +19,7 @@ class Kind(Openable):
         self.default_action = 'open'
 
     def action_open(self, context):
+        """ Loads first selected session after wiping out all buffers """
         target = context['targets'][0]
         path = target['action__path']
 
@@ -25,18 +27,26 @@ class Kind(Openable):
         if current and 'SessionLoad' not in self.vim.vars:
             self.vim.command('mksession! {}'.format(current))
 
-        self.vim.command('bufdo bd')
-        self.vim.command('source {}'.format(path))
+        self.vim.command('noautocmd silent! %bwipeout!')
+        self.vim.command('silent! source {}'.format(path))
 
     def action_delete(self, context):
+        """ Delete selected session(s) """
         for target in context['targets']:
             file_path = target['action__path']
-            if len(file_path) > 2 and os.path.isfile(file_path):
-                os.remove(file_path)
+            if len(file_path) < 2 or not os.path.isfile(file_path):
+                continue
+
+            msg = 'Delete session `{}` ? '.format(os.path.basename(file_path))
+            if util.input(self.vim, context, msg) not in ['y', 'yes']:
+                continue
+
+            self.vim.call('delete', target['action__path'])
             if self.vim.eval('v:this_session') == file_path:
                 self.vim.command("let v:this_session = ''")
 
     def action_save(self, context):
+        """ Overwrite the first selected session """
         target = context['targets'][0]
         file_path = target['action__path']
         self.vim.command("mksession! '{}'".format(file_path))
