@@ -20,7 +20,7 @@ class Source(Base):
         self.name = 'session'
         self.kind = 'session'
         self.vars = {
-            'path': vim.vars.get('session_directory', None),
+            'path': vim.vars.get('session_directory', '~/.cache/vim/session'),
             'pattern': '*'
         }
 
