@@ -30,6 +30,11 @@ class Kind(Openable):
         self.vim.command('noautocmd silent! %bwipeout!')
         self.vim.command('silent! source {}'.format(path))
 
+    def action_preview(self, context):
+        """ Previews first selected session after wiping out all buffers """
+        self.action_open(self, context)
+        self.vim.command("let v:this_session = ''")
+
     def action_delete(self, context):
         """ Delete selected session(s) """
         for target in context['targets']:
