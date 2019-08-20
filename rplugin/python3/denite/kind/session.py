@@ -32,7 +32,7 @@ class Kind(Openable):
 
     def action_preview(self, context):
         """ Previews first selected session after wiping out all buffers """
-        self.action_open(self, context)
+        self.action_open(context)
         self.vim.command("let v:this_session = ''")
 
     def action_delete(self, context):
