@@ -32,9 +32,9 @@ class Kind(Openable):
 
     def action_preview(self, context):
         """ Opens a session that will not autosave """
-        eval_session = int(vim.eval('exists("v:this_session")'))
+        eval_session = int(self.vim.eval('exists("v:this_session")'))
         if eval_session:
-            this_session = vim.eval("v:this_session")
+            this_session = self.vim.eval("v:this_session")
         else:
             this_session = "''"
         self.action_open(context)
