@@ -31,7 +31,7 @@ class Kind(Openable):
         self.vim.command('silent! source {}'.format(path))
 
     def action_preview(self, context):
-        """ Opens a session that will not autosave """
+        """ Opens a session anonymously """
         eval_current = int(self.vim.eval('exists("v:this_session")'))
         if eval_current:
             current = self.vim.eval('v:this_session')
