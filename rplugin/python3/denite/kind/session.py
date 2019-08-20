@@ -32,13 +32,13 @@ class Kind(Openable):
 
     def action_preview(self, context):
         """ Opens a session that will not autosave """
-        eval_session = int(self.vim.eval('exists("v:this_session")'))
-        if eval_session:
-            this_session = self.vim.eval("v:this_session")
+        eval_current = int(self.vim.eval('exists("v:this_session")'))
+        if eval_current:
+            current = self.vim.eval('v:this_session')
         else:
-            this_session = "''"
+            current = ""
         self.action_open(context)
-        self.vim.command("let v:this_session = {}".format(this_session))
+        self.vim.command("let v:this_session = '{}'".format(current))
 
     def action_delete(self, context):
         """ Delete selected session(s) """
