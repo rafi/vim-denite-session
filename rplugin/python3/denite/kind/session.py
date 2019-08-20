@@ -31,7 +31,7 @@ class Kind(Openable):
         self.vim.command('silent! source {}'.format(path))
 
     def action_preview(self, context):
-        """ Previews first selected session after wiping out all buffers """
+        """ Opens a session that will not autosave """
         self.action_open(context)
         self.vim.command("let v:this_session = ''")
 
