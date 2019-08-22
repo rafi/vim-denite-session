@@ -32,8 +32,8 @@ class Kind(Openable):
 
     def action_preview(self, context):
         """ Opens a session anonymously """
-        eval_current = int(self.vim.eval('exists("v:this_session")'))
-        if eval_current:
+        current_exists = int(self.vim.eval('exists("v:this_session")'))
+        if current_exists:
             current = self.vim.eval('v:this_session')
         else:
             current = ""
