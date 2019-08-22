@@ -59,6 +59,5 @@ class Kind(Openable):
         """ Overwrite the first selected session """
         target = context['targets'][0]
         file_path = target['action__path']
-        self.vim.call('delete', file_path)
-        self.vim.command("mksession! '{}'".format(file_path))
+        self.vim.command("mksession! {}".format(file_path))
         self.vim.command("let v:this_session = '{}'".format(file_path))
