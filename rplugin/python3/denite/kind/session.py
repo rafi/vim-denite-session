@@ -30,6 +30,16 @@ class Kind(Openable):
         self.vim.command('noautocmd silent! %bwipeout!')
         self.vim.command('silent! source {}'.format(path))
 
+    def action_preview(self, context):
+        """ Opens a session anonymously """
+        current_exists = int(self.vim.eval('exists("v:this_session")'))
+        if current_exists:
+            current = self.vim.eval('v:this_session')
+        else:
+            current = ""
+        self.action_open(context)
+        self.vim.command("let v:this_session = '{}'".format(current))
+
     def action_delete(self, context):
         """ Delete selected session(s) """
         for target in context['targets']:
@@ -49,5 +59,5 @@ class Kind(Openable):
         """ Overwrite the first selected session """
         target = context['targets'][0]
         file_path = target['action__path']
-        self.vim.command("mksession! '{}'".format(file_path))
+        self.vim.command("mksession! {}".format(file_path))
         self.vim.command("let v:this_session = '{}'".format(file_path))
