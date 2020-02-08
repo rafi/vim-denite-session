@@ -7,8 +7,6 @@
 import os
 
 from .openable import Kind as Openable
-from denite.util import input
-
 
 class Kind(Openable):
 
