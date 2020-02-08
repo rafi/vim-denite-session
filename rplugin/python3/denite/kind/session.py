@@ -7,7 +7,7 @@
 import os
 
 from .openable import Kind as Openable
-from denite import util
+from denite.util import input
 
 
 class Kind(Openable):
@@ -43,7 +43,7 @@ class Kind(Openable):
                 continue
 
             msg = 'Delete session `{}` ? '.format(os.path.basename(file_path))
-            if util.input(self.vim, context, msg) not in ['y', 'yes']:
+            if input(self.vim, context, msg) not in ['y', 'yes']:
                 continue
 
             self.vim.call('delete', target['action__path'])
