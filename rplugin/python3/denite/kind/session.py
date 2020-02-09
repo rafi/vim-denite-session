@@ -41,7 +41,7 @@ class Kind(Openable):
                 continue
 
             msg = 'Delete session `{}` ? '.format(os.path.basename(file_path))
-            if input(self.vim, context, msg) not in ['y', 'yes']:
+            if self.vim.call('input', msg) not in ['y', 'yes']:
                 continue
 
             self.vim.call('delete', target['action__path'])
