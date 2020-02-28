@@ -7,8 +7,6 @@
 import os
 
 from .openable import Kind as Openable
-from denite import util
-
 
 class Kind(Openable):
 
@@ -32,13 +30,8 @@ class Kind(Openable):
 
     def action_preview(self, context):
         """ Opens a session anonymously """
-        current_exists = int(self.vim.eval('exists("v:this_session")'))
-        if current_exists:
-            current = self.vim.eval('v:this_session')
-        else:
-            current = ""
         self.action_open(context)
-        self.vim.command("let v:this_session = '{}'".format(current))
+        self.vim.command("let v:this_session = ''")
 
     def action_delete(self, context):
         """ Delete selected session(s) """
@@ -48,7 +41,7 @@ class Kind(Openable):
                 continue
 
             msg = 'Delete session `{}` ? '.format(os.path.basename(file_path))
-            if util.input(self.vim, context, msg) not in ['y', 'yes']:
+            if self.vim.call('input', msg) not in ['y', 'yes']:
                 continue
 
             self.vim.call('delete', target['action__path'])
